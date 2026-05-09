@@ -3,13 +3,16 @@ from sklearn.preprocessing import MinMaxScaler
 
 # 1. Load raw data
 df = pd.read_csv("../sample_superstore_raw.csv", encoding="latin-1")
-print(f"Initial shape, size, and dtypes: {df.shape}, {df.size}, {df.dtypes}")
+print(f"Initial shape and size: {df.shape}, {df.size}")
+print(f"\nInitial dtypes:\n{df.dtypes}")
 
 # 2. Missing values
+print("\nMissing values:")
 print(df.isnull().sum())
 df = df.dropna()
 
 # 3. Menghapus duplikat
+print("\nDuplicate rows:")
 print(df.duplicated().sum())
 df = df.drop_duplicates()
 
@@ -38,8 +41,9 @@ df[['Quantity', 'Discount', 'Profit']] = scaler.fit_transform(df[['Quantity', 'D
 bins = [0, 0.2, 0.4, 1.0]
 labels = ['Low', 'Medium', 'High']
 df['Discount_Bin'] = pd.cut(df['Discount'], bins=bins, labels=labels, include_lowest=True)
-print(f"Final shape, size, and dtypes after preprocessing: {df.shape}, {df.size}, {df.dtypes}")
+print(f"\nFinal shape and size after preprocessing: {df.shape}, {df.size}")
+print(f"\nFinal dtypes after preprocessing:\n{df.dtypes}")
 
 # 9. Save preprocessed csv
 df.to_csv("sample_superstore_preprocessing.csv", index=False)
-print(f"Saved preprocessed.csv")
+print(f"\nSaved preprocessed.csv")
